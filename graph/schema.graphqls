@@ -1,0 +1,119 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+type Home {
+  homeID: String!
+  name: String!
+  address: String!
+  rent: Float!
+  latitude: Float!
+  longitude: Float!
+  numBed: Int!
+  city: String!
+}
+
+type Work {
+  workID: String!
+  name: String!
+  address: String!
+  city: String!
+  latitude: Float!
+  longitude: Float!
+}
+type User {
+  userID: String!
+  password: String!
+  username: String!
+  email: String!
+}
+input AuthQuery {
+  username: String!
+  email: String!
+  password: String!
+}
+type AuthResult {
+  success : Boolean!
+  vaildRequest : Boolean!
+  userID : String!
+}
+type UniquenessResult {
+  emailUnique : Boolean!
+  usernameUnique : Boolean!
+  message : String!
+}
+
+type Query {
+  homes(userId: String!): [Home!]!
+  works(userId: String!): [Work!]!
+  authentication(authenticaionDetails: AuthQuery!): AuthResult!
+  uniqueness(newEmail: String!, newUserName: String!): UniquenessResult!
+}
+
+input newUser {
+  username: String!
+  email: String!
+  password: String!
+}
+
+input newHome {
+  name: String!
+  address: String!
+  rent: Float!
+  numBed: Int!
+  userID: String!
+  city: String!
+}
+
+input newWork {
+  name: String!
+  address: String!
+  userID: String!
+  city: String!
+}
+input deleteInfo {
+  userID: String!
+  itemType: String!
+  itemID: String!
+}
+type deleteResult {
+  success: Boolean!
+  description : String!
+}
+
+input modUser {
+  userID: String!
+  password: String!
+  username: String!
+  email: String!
+}
+input modHome {
+  userID: String!
+  homeID: String!
+  name: String!
+  address: String!
+  rent: Float!
+  latitude: Float!
+  longitude: Float!
+  numBed: Int!
+  city: String!
+}
+input modWork {
+  userId: String!
+  workID: String!
+  name: String!
+  address: String!
+  city: String!
+  latitude: Float!
+  longitude: Float!
+}
+
+type Mutation {
+  createUser(input: newUser!): User!
+  createHome(input: newHome!): Home!
+  createWork(input: newWork!): Work!
+  modifyUser(input: modUser!): User!
+  modifyHome(input: modHome!): Home!
+  modifyWork(input: modWork!): Work!
+  deleteItem(input: deleteInfo): deleteResult!
+}
